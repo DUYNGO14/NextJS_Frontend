@@ -16,12 +16,9 @@ class ServerService extends AxiosCommon {
     // Trong class ServerService
     this.axiosInstance.interceptors.response.use(
       (response: any) => {
-        console.log("API Response server:", {
-          data: response.data,
-          status: response.status,
-        });
         const data = {
           ...response.data,
+          pagination: response.data?.pagination || null,
           code: response.status,
         };
         return data;

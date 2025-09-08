@@ -1,5 +1,6 @@
 'use client';
 
+import { MatchDataType } from '@/app/common/validation/matches.schema';
 import {
   KeyboardArrowLeft,
   KeyboardArrowRight,
@@ -12,9 +13,9 @@ import {
   useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import CardMatch, { CardMatchProps } from './CardMatch';
+import CardMatch from './CardMatch';
 
-const CardMatchCarousel = ({ matches }: { matches: CardMatchProps[] }) => {
+const CardMatchCarousel = ({ matches }: { matches: MatchDataType[] }) => {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('sm'));
   const isSm = useMediaQuery(theme.breakpoints.down('md'));

@@ -1,11 +1,10 @@
+import Matches from '@components/containers/Matches'
 import React from 'react'
 
-const HomePage = () => {
+const MatchesPage = () => {
   return (
-    <div>
-     Matches
-    </div>
+    <Matches />
   )
 }
 
-export default HomePage
+export default MatchesPage

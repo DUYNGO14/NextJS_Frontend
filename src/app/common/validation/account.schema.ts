@@ -28,7 +28,7 @@ export const UpdateMeBody = z.object({
   username: z.string().trim().min(2).max(256).nullable().optional(),
   dob: z.date().nullable().optional(),
   gender: z.enum(['male', 'female']).nullable().optional(),
-  phone: z.string().trim().min(2).max(256).nullable().optional(),
+  phone: z.string().trim().min(10).max(11).nullable().optional(),
 })
 
 export type UpdateMeBodyType = z.infer<typeof UpdateMeBody>

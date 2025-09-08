@@ -1,74 +1,21 @@
-import { CardMatchProps } from '@components/containers/Home/Matches/CardMatch'
+'use client'
+import { getMatchesAction, makeSelectMatchesData } from '@/app/stores/reducers/matches'
 import CardMatchCarousel from '@components/containers/Home/Matches/CardMatchCarousel'
 import { Box, Container, Link as MuiLink, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 const Matches = () => {
-  const matches : CardMatchProps[] = [
-    {
-      id: 1,
-      homeTeam: 'MAN UTD',
-      awayTeam: 'Liverpool',
-      date: '2025-08-01',
-      time: '19:00',
-      location: 'Old Trafford',
-      league: 'Premier League',
-      homeLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png',
-      awayLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/800px-Chelsea_FC.svg.png',
-      infoButton: 'Match Info',
-    },
-    {
-      id: 2,
-      homeTeam: 'Chelsea',
-      awayTeam: 'MAN UTD',
-      date: '2025-08-02',
-      time: '20:00',
-      location: 'Emirates Stadium',
-      league: 'Premier League',
-      homeLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cc/Chelsea_FC.svg/800px-Chelsea_FC.svg.png',
-      awayLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png',
-      infoButton: 'Match Review',
-    },
-    {
-      id: 3,
-      homeTeam: 'Liverpool',
-      awayTeam: 'MAN UTD',
-      date: '2025-08-03',
-      time: '21:00',
-      location: 'Anfield',
-      league: 'Premier League',
-      homeLogo: 'https://upload.wikimedia.org/wikipedia/sco/0/0c/Liverpool_FC.svg',      
-      awayLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png',
-      infoButton: 'Match Info',
-    },
-    {
-      id: 4,
-      homeTeam: 'Arsenal',
-      awayTeam: 'MAN UTD',
-      date: '2025-08-04',
-      time: '22:00',
-      location: 'Emirates Stadium',      
-      league: 'Premier League',
-      homeLogo: 'https://upload.wikimedia.org/wikipedia/vi/thumb/5/53/Arsenal_FC.svg/1747px-Arsenal_FC.svg.png',
-      awayLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png',
-    },
-    {
-      id: 5,
-      homeTeam: 'MAN CITY',
-      awayTeam: 'MAN UTD',
-      date: '2025-08-05',
-      time: '23:00',
-      location: 'Etihad Stadium',      
-      league: 'Premier League',      
-      homeLogo: 'https://upload.wikimedia.org/wikipedia/vi/1/1d/Manchester_City_FC_logo.svg',
-      awayLogo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Manchester_United_FC_crest.svg/800px-Manchester_United_FC_crest.svg.png',
-      infoButton: 'Match Review',
-    }
-  ]
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMatchesAction({ page: 1, limit: 5 }));
+  }, []);
+  const matches = useSelector(makeSelectMatchesData);
   return (
     <Box component="section" sx={{ pt: { xs: 1, md: 3 }, pb: { xs: 2, md: 4 } }}>
       <Container>
-       <Stack
+        <Stack
           direction={{ xs: "column", sm: "row" }}
           justifyContent="space-between"
           alignItems={{ xs: "flex-start", sm: "center" }}
@@ -85,13 +32,13 @@ const Matches = () => {
           >
             Matches
           </Typography>
-            <MuiLink component={Link} href={"/matches"}>
-              All Matches
-            </MuiLink>
-        </Stack>  
+          <MuiLink component={Link} href={"/matches"}>
+            All Matches
+          </MuiLink>
+        </Stack>
         {/* Card Match */}
         <CardMatchCarousel matches={matches} />
-        
+
       </Container>
     </Box>
   )

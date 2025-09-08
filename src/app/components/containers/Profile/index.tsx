@@ -327,7 +327,7 @@ const Profile = () => {
                       disabled
                       InputProps={{
                         startAdornment: <EmailIcon sx={{ mr: 1, color: 'action.active' }} />
-                      }}
+                      }}                         
                     />
                   </Grid>
 

@@ -1,3 +1,6 @@
+'use client';
+import { MatchDataType } from '@/app/common/validation/matches.schema';
+import useDateFormatter from '@/app/hooks/useDateFormatter';
 import { CalendarMonth, LocationOn, Schedule } from '@mui/icons-material';
 import {
   Box,
@@ -9,20 +12,9 @@ import {
   Typography
 } from '@mui/material';
 import Image from 'next/image';
-export interface CardMatchProps {
-  // Add any props if needed in the future
-  id: number;
-  homeTeam: string;
-  awayTeam: string;
-  date: string;
-  time: string;
-  location: string;
-  league: string;
-  homeLogo: string;
-  awayLogo: string;
-  infoButton?: string;
-}
-const CardMatch = ({ match }: { match: CardMatchProps }) => {
+const CardMatch = ({ match }: { match: MatchDataType }) => {
+   const formatter = useDateFormatter();
+
   return (
     <Card
       sx={{
@@ -66,7 +58,7 @@ const CardMatch = ({ match }: { match: CardMatchProps }) => {
         >
           <CalendarMonth sx={{ fontSize: 18, color: 'text.secondary' }} />
           <Typography variant="body2" color="text.secondary">
-            {match.date}
+            {formatter.shortDate(match.kickOff)}
           </Typography>
         </Stack>
 
@@ -78,7 +70,7 @@ const CardMatch = ({ match }: { match: CardMatchProps }) => {
         >
           <Schedule sx={{ fontSize: 18, color: 'text.secondary' }} />
           <Typography variant="body2" color="text.secondary">
-            {match.time}
+            {formatter.time(match.kickOff)}
           </Typography>
           <Chip
             label={match.location}

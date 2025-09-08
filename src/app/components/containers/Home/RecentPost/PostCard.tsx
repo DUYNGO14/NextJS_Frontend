@@ -10,7 +10,7 @@ import {
 
 interface PostCardProps {
   title: string;
-  excerpt: string;
+  content: string;
   date: string;
   readTime: string;
   category: string;
@@ -19,7 +19,7 @@ interface PostCardProps {
 
 const PostCard = ({
   title,
-  excerpt,
+  content,
   date,
   readTime,
   category,
@@ -80,7 +80,7 @@ const PostCard = ({
           color="text.secondary"
           sx={{ mb: 3, lineHeight: 1.6 }}
         >
-          {excerpt}
+          {content}
         </Typography>
 
         <Stack
