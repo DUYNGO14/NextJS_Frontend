@@ -64,14 +64,14 @@ const HeaderDesktop = ({ user, token, pathname, handleLogout }: HeaderProps) => 
           {/* Center - Navigation Links */}
           <Box sx={{ display: 'flex', gap: 5, mx: 4 }}>
             {ROUTE_LIST.map((item) => (
-           
-                <MuiLink component={Link} href={item.path} key={item.path}
-                  className={clsx({ active: pathname === item.path })}
-                  underline="none"
-                >
-                  {item.name}
-                </MuiLink>
-              
+
+              <MuiLink component={Link} href={item.path} key={item.path}
+                className={clsx({ active: pathname === item.path })}
+                underline="none"
+              >
+                {item.name}
+              </MuiLink>
+
             ))}
           </Box>
 
@@ -125,7 +125,7 @@ const HeaderDesktop = ({ user, token, pathname, handleLogout }: HeaderProps) => 
                   }}
                 >
                   <MenuItem onClick={handleMenuClose}>
-                    <Typography variant="body2" onClick={() => {router.push('/profile')}}>Profile</Typography>
+                    <Typography variant="body2" onClick={() => { router.push('/profile') }}>Profile</Typography>
                   </MenuItem>
                   <MenuItem onClick={handleMenuClose}>
                     <Typography variant="body2">Dashboard</Typography>
@@ -137,31 +137,27 @@ const HeaderDesktop = ({ user, token, pathname, handleLogout }: HeaderProps) => 
               </>
             ) : (
               <Box sx={{ display: 'flex', gap: 1 }}>
-                <Link href="/auth/login" passHref>
-                  <MuiLink underline="none">
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        fontWeight: 600,
-                        borderWidth: 2,
-                        '&:hover': { borderWidth: 2 },
-                      }}
-                    >
-                      Login
-                    </Button>
-                  </MuiLink>
-                </Link>
+                <MuiLink component={Link} href="/auth/login" underline="none">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      fontWeight: 600,
+                      borderWidth: 2,
+                      '&:hover': { borderWidth: 2 },
+                    }}
+                  >
+                    Login
+                  </Button>
+                </MuiLink>
 
-                <Link href="/auth/register" passHref >
-                  <MuiLink underline="none">
-                    <Button
-                      variant="contained"
-                      sx={{ fontWeight: 600 }}
-                    >
-                      Register
-                    </Button>
-                  </MuiLink>
-                </Link>
+                <MuiLink component={Link} href="/auth/register" underline="none">
+                  <Button
+                    variant="contained"
+                    sx={{ fontWeight: 600 }}
+                  >
+                    Register
+                  </Button>
+                </MuiLink>
               </Box>
             )}
           </Box>

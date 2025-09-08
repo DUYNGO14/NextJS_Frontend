@@ -29,6 +29,7 @@ const PostCard = ({
     <Card
       sx={{
         height: '100%',
+        maxHeight: 500,
         display: 'flex',
         flexDirection: 'column',
         borderRadius: 2,
@@ -41,11 +42,12 @@ const PostCard = ({
     >
       <CardMedia
         component="img"
-        height="150"
         image={image}
         alt={title}
         sx={{
-          objectFit: 'cover',
+          height: 200, // fix cao 200px
+          width: '100%',
+          objectFit: 'cover', // crop ảnh vừa khung
         }}
       />
       <CardContent sx={{ flexGrow: 1, p: 3 }}>
@@ -55,7 +57,7 @@ const PostCard = ({
           color="primary"
           sx={{ mb: 2, fontWeight: 600 }}
         />
-        
+
         <Typography
           variant="h6"
           component="h3"
@@ -72,7 +74,7 @@ const PostCard = ({
         >
           {title}
         </Typography>
-        
+
         <Typography
           variant="body2"
           color="text.secondary"
@@ -80,7 +82,7 @@ const PostCard = ({
         >
           {excerpt}
         </Typography>
-        
+
         <Stack
           direction="row"
           spacing={2}
@@ -93,7 +95,7 @@ const PostCard = ({
               {date}
             </Typography>
           </Stack>
-          
+
           <Stack direction="row" spacing={0.5} alignItems="center">
             <Schedule sx={{ fontSize: 18, color: 'text.secondary' }} />
             <Typography variant="caption" color="text.secondary">

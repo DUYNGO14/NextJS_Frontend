@@ -84,10 +84,12 @@ const HeaderMobile = ({
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
           PaperProps={{
-            sx: { width: '80%', maxWidth: 300, display: { xs: 'block', md: 'none' },
-            '& .MuiBackdrop-root': {
-              display: { xs: 'block', md: 'none' }
-            } }
+            sx: {
+              width: '80%', maxWidth: 300, display: { xs: 'block', md: 'none' },
+              '& .MuiBackdrop-root': {
+                display: { xs: 'block', md: 'none' }
+              }
+            }
           }}
         >
           <Box sx={{ p: 2 }}>
@@ -184,17 +186,21 @@ const HeaderMobile = ({
               </>
             ) : (
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Link href="/auth/login" passHref >
-                  <MuiLink underline="none">
-                    <Button>Login</Button>
-                  </MuiLink>
-                </Link>
+
+                <MuiLink underline="none" component={Link} href="/auth/login">
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      fontWeight: 600,
+                    }}
+                  >Login</Button>
+                </MuiLink>
 
                 <Link href="/auth/register" passHref style={{ textDecoration: 'none' }}>
                   <Button
                     fullWidth
                     variant="contained"
-
                     sx={{
                       fontWeight: 600,
                     }}

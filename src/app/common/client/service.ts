@@ -1,4 +1,3 @@
-import { error } from './../../../../../server/node_modules/effect/src/Brand';
 import AxiosCommon , { AxiosOptions} from "@/app/common/Axios";
 
 class ClientService extends AxiosCommon {
