@@ -1,6 +1,9 @@
+'use client'
+import CardPostSkeleton from '@/app/components/containers/Sekeloton/CardPostSkeleton';
 import PostCard from '@components/containers/Home/RecentPost/PostCard';
 import { Box, Container, Grid, Link as MuiLink, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 const RecentPost = () => {
   // Mock data for posts
   const posts = [
@@ -104,8 +107,13 @@ const RecentPost = () => {
       category: "Fans",
       image: "https://picsum.photos/seed/mu10/1200/800",
     },
-  ];
-
+  ];  
+  const [isCalling, setIsCalling] = useState(true)
+  useEffect(() => {
+    setTimeout(()=>{
+      setIsCalling(false)
+    }, 1000)
+  })
   return (
     <Box
       component="section"
@@ -138,8 +146,7 @@ const RecentPost = () => {
             View All Posts
           </MuiLink>
         </Stack>
-
-        <Grid container spacing={4}>
+        {isCalling ? <CardPostSkeleton count={2} /> : <Grid container spacing={4}>
           {posts.slice(0, 2).map((post) => (
             <Grid
               item
@@ -170,7 +177,8 @@ const RecentPost = () => {
               </Box>
             </Grid>
           ))}
-        </Grid>
+        </Grid>}
+
       </Container>
     </Box>
   )

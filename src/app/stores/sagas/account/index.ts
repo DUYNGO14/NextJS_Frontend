@@ -10,7 +10,6 @@ function* callApiGetAccount(
 ): Generator<any, void, unknown> {
   try {
     const response: any = yield call(get, "/account", action.payload);
-    console.log("Account response saga:", response);
     if (response.code >= 200 && response.code < 300) {
       yield put(accountSuccess(response.data || {}));
     } else {
@@ -23,7 +22,6 @@ function* callApiGetAccount(
 function* callApiUpdateAccount(action: PayloadAction<UpdateMeBodyType>): Generator<any, void, unknown> {
   try {
     const response: any = yield call(update, "/account", action.payload);
-    console.log("Account response saga:", response);
     if (response.code >= 200 && response.code < 300) {
       yield put(accountUpdateSuccess(response.data || {}));
       yield put(showNotification({ message: "Update successfully!!", severity: "success" }));

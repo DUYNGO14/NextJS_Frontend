@@ -75,10 +75,8 @@ function* callApiRegister(
 ): Generator<any, void, unknown> {
   try {
     const payload = action.payload;
-    console.log("Register payload saga:", payload);
 
     const response: any = yield call(post, "/auth/register", payload);
-    console.log("Register response saga:", response);
 
     if (response.code >= 200 && response.code < 300) {
       yield put(registerSuccess(response.data));
@@ -125,7 +123,6 @@ function* callApiRegister(
 function* callApiLogout(): Generator<any, void, unknown> {
   try {
     const response: any = yield call(post, "/auth/logout", {});
-    console.log("Logout response saga:", response);
     if (response.code >= 200 && response.code < 300) {
       yield put(logoutSuccess());
       yield put(

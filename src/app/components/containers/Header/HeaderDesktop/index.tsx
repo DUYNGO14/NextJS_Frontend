@@ -4,6 +4,7 @@
 import { logo } from '@/app/images';
 import { HeaderProps } from '@components/containers/Header';
 import { ROUTE_LIST } from '@components/containers/Header/router';
+import { Logout } from '@mui/icons-material';
 import {
   AppBar,
   Avatar,
@@ -103,17 +104,17 @@ const HeaderDesktop = ({ user, token, pathname, handleLogout }: HeaderProps) => 
                     variant="body2"
                     sx={{ display: { xs: 'none', sm: 'block' } }}
                   >
-                    {user?.name || 'User'}
+                    {user?.email || 'User'}
                   </Typography>
                 </Button>
 
-                <Button
+                {/* <Button
                   variant="contained"
                   sx={{ fontWeight: 600 }}
                   onClick={handleLogout}
                 >
                   Logout
-                </Button>
+                </Button> */}
 
                 <Menu
                   anchorEl={anchorEl}
@@ -132,6 +133,9 @@ const HeaderDesktop = ({ user, token, pathname, handleLogout }: HeaderProps) => 
                   </MenuItem>
                   <MenuItem onClick={handleMenuClose}>
                     <Typography variant="body2">Settings</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={()=>{handleLogout(); handleMenuClose()}}>
+                    <Typography variant="body2" sx={{ color: 'error.main' }}>Logout</Typography>
                   </MenuItem>
                 </Menu>
               </>

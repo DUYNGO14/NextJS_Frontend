@@ -8,7 +8,6 @@ import { vi } from "date-fns/locale";
 // import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV2';
 const PostPage = () => {
   const [date, setDate] = useState<Date | null>(new Date());
-  console.log(date);
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={vi}>
      <DatePicker  value={date} onChange={(newValue) => setDate(newValue)} />

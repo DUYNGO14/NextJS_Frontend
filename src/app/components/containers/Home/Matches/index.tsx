@@ -1,5 +1,6 @@
 'use client'
-import { getMatchesAction, makeSelectMatchesData } from '@/app/stores/reducers/matches'
+import SkeletonCardMatch from '@components/containers/Sekeloton/CardMatchSkeleton'
+import { getMatchesAction, makeSelectMatches, makeSelectMatchesData } from '@stores/reducers/matches'
 import CardMatchCarousel from '@components/containers/Home/Matches/CardMatchCarousel'
 import { Box, Container, Link as MuiLink, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
@@ -11,6 +12,7 @@ const Matches = () => {
   useEffect(() => {
     dispatch(getMatchesAction({ page: 1, limit: 5 }));
   }, []);
+  const { isCalling } = useSelector(makeSelectMatches);
   const matches = useSelector(makeSelectMatchesData);
   return (
     <Box component="section" sx={{ pt: { xs: 1, md: 3 }, pb: { xs: 2, md: 4 } }}>
@@ -37,8 +39,9 @@ const Matches = () => {
           </MuiLink>
         </Stack>
         {/* Card Match */}
-        <CardMatchCarousel matches={matches} />
-
+        {
+          isCalling  ? <SkeletonCardMatch count={3} /> : <CardMatchCarousel matches={matches} />
+        }
       </Container>
     </Box>
   )

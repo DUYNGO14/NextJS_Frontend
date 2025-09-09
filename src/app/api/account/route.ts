@@ -7,8 +7,6 @@ export async function GET(request: Request) {
     // ✅ Gọi API để lấy thông tin account
     const response: any = await get("/account/me");
 
-    console.log("Account info response:", response);
-
     // ✅ Xử lý response từ API
     if (response?.code >= 400) {
       return NextResponse.json(
@@ -59,11 +57,8 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    console.log("Update account:", body);
     // ✅ Gọi API để lấy thông tin account
     const response: any = await put("/account/me", body);
-
-    console.log("Account info response:", response);
 
     // ✅ Xử lý response từ API
     if (response?.code >= 400) {

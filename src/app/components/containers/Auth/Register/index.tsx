@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   Visibility,
   VisibilityOff,
+  ArrowBack
 } from '@mui/icons-material';
 import {
   Alert,
@@ -20,7 +21,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { makeSelectAuthError, makeSelectAuthIsCalling, makeSelectAuthIsError, makeSelectAuthIsSuccess, makeSelectAuthType, registerAction } from '@stores/reducers/auth';
+import { makeSelectAuthError, makeSelectAuthIsCalling, makeSelectAuthIsError, makeSelectAuthIsSuccess, makeSelectAuthType, registerAction, reset } from '@stores/reducers/auth';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -49,6 +50,10 @@ const RegisterForm = () => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
+  useEffect(() => {
+    dispatch(reset());
+  }, [])
 
   useEffect(() => {
     if (isSuccess && !isCalling) {
@@ -116,7 +121,7 @@ const RegisterForm = () => {
             Log in
           </MuiLink>
         </Typography>
-        {isError && <Alert severity="error" sx={{ mb: 2 }}>{error || 'Something went wrong'}.</Alert>}
+        {type === 'register' && isError && <Alert severity="error" sx={{ mb: 2 }}>{error || 'Something went wrong'}.</Alert>}
         {/* Login Form */}
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -187,26 +192,27 @@ const RegisterForm = () => {
             }}
           />
           {/* Login Button */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            disabled={isCalling}
-            sx={{
-              py: 1.5,
-              mb: 3,
-              borderRadius: 1,
-              fontWeight: 'bold',
-              fontSize: '1rem',
-              textTransform: 'none',
-              boxShadow: 'none',
-              '&:hover': {
-                boxShadow: 'none',
-              },
-            }}
-          >
-            {isCalling ? 'Registering...' : 'REGISTER'}
-          </Button>
+          <Box display={'flex'} flexDirection={'column'} gap={2}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              disabled={isCalling}
+            >
+              {isCalling ? 'Registering...' : 'REGISTER'}
+            </Button>
+            <Button
+              startIcon={<ArrowBack />}
+              type="submit"
+              fullWidth
+              variant="outlined"
+              disabled={isCalling}
+              onClick={()=> window.history.back()}
+            >
+              Back
+            </Button>
+          </Box>
+
           <Divider sx={{ my: 2 }} />
         </Box>
         <Box sx={{ mt: 3, textAlign: 'center', color: 'text.secondary', fontSize: '0.875rem' }}>

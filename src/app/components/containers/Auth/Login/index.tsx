@@ -4,6 +4,7 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Alert,
   Box,
@@ -20,7 +21,7 @@ import { useEffect, useState } from 'react';
 
 import { LoginBody, LoginBodyType } from '@/app/common/validation/auth.schema';
 import { logo } from '@/app/images';
-import { loginAction, makeSelectAuthError, makeSelectAuthIsCalling, makeSelectAuthIsError, makeSelectAuthIsSuccess, makeSelectAuthType } from '@stores/reducers/auth';
+import { loginAction, makeSelectAuthError, makeSelectAuthIsCalling, makeSelectAuthIsError, makeSelectAuthIsSuccess, makeSelectAuthType, reset } from '@stores/reducers/auth';
 import { StyleTextField } from '@components/atom/StyleTextField';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Image from 'next/image';
@@ -35,6 +36,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     setYear(new Date().getFullYear());
+    dispatch(reset());
   }, []);
   const router = useRouter();
 
@@ -123,7 +125,7 @@ const LoginForm = () => {
             Create an account
           </MuiLink>
         </Typography>
-        {isError && <Alert severity="error" sx={{ mb: 2 }}>{error || 'Invalid email or password'}.</Alert>}
+        {type === 'login' && isError && <Alert severity="error" sx={{ mb: 2 }}>{error || 'Invalid email or password'}.</Alert>}
         {/* Login Form */}
         <Box component="form" onSubmit={handleSubmit(onSubmit)}>
           <TextField
@@ -161,26 +163,21 @@ const LoginForm = () => {
             }}
           />
           {/* Login Button */}
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            disabled={isCalling}
-            sx={{
-              py: 1.5,
-              mb: 3,
-              borderRadius: 1,
-              fontWeight: 'bold',
-              fontSize: '1rem',
-              textTransform: 'none',
-              boxShadow: 'none',
-              '&:hover': {
-                boxShadow: 'none',
-              },
-            }}
-          >
-            {isCalling ? 'LOGGING IN...' : 'LOG IN'}
-          </Button>
+          <Box display={'flex'} flexDirection={'column'} gap={2}>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              disabled={isCalling}
+            >
+              {isCalling ? 'LOGGING IN...' : 'LOG IN'}
+            </Button>
+            <Button startIcon={<ArrowBackIcon />} fullWidth variant="outlined" disabled={isCalling}
+              onClick={() => window.history.back()}>
+              Back Home
+            </Button>
+          </Box>
+
           <MuiLink component={Link} href="/auth/register" underline="none">
             Forgot password?
           </MuiLink>

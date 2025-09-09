@@ -93,6 +93,15 @@ export const authSlice = createSlice({
       state.error = action.payload;
       state.type = "logout";
     },
+    reset: (state) => {
+      state.isCalling = false;
+      state.isSuccess = false;
+      state.isError = false;
+      state.error = null;
+      state.data = null;
+      state.param = null;
+      state.type = "";
+    },
   },
 });
 
@@ -106,6 +115,7 @@ export const {
   logoutAction,
   logoutSuccess,
   logoutError,
+  reset,
 } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

@@ -13,6 +13,7 @@ export interface Pagination{
 export interface MatchesState {
   isCalling: boolean;
   isSuccess: boolean;
+  isCallingPage?: boolean;
   isError: boolean;
   error: any;
   match : MatchDataType | null;
@@ -24,6 +25,7 @@ export interface MatchesState {
 
 export const initialState: MatchesState = {
   isCalling: false,
+  isCallingPage: false,
   isSuccess: false,
   isError: false,
   error: null,
@@ -39,7 +41,15 @@ export const matchesSlice = createSlice({
   initialState,
   reducers: {
     getMatchesAction: (state, action: PayloadAction<any>) => {
-      state.isCalling = true;
+      console.log(action.payload);
+      console.log(action.payload.page);
+      if(action.payload.page>1){
+        state.isCallingPage = true;
+        state.isCalling = false;
+      }else{
+        state.isCallingPage = false;
+        state.isCalling = true;
+      }
       state.isSuccess = false;
       state.isError = false;
       state.error = null;
@@ -81,12 +91,13 @@ export const matchesSlice = createSlice({
     callSuccess: (state, action: PayloadAction<{type:string, data: any, pagination?: Pagination}>) => {
       state.isCalling = false;
       state.isSuccess = true;
+      state.isCallingPage = false;
       state.isError = false;
       state.error = null;
       state.type = action.payload.type;
       switch (action.payload.type) {
         case "getMatches":
-          state.matches = action.payload.data;
+          state.matches = state.matches ? [...state.matches, ...action.payload.data] : action.payload.data;
           state.pagination = action.payload.pagination ?? null;
           break;
         case "getMatchesById":

@@ -7,8 +7,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const res: any = await post("/auth/login", body);
 
-    console.log("Res login route:", res);
-
     // ✅ SỬA: Kiểm tra code thay vì data
     if (res?.code >= 400) {
       // Trả về error response từ API
@@ -21,8 +19,6 @@ export async function POST(request: Request) {
         { status: res.code }
       );
     }
-
-    console.log("Token:", res.data?.token);
 
     const cookieStore = await cookies();
     if (res?.code === 200 && res.data?.token) {

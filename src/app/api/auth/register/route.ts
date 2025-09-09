@@ -7,7 +7,6 @@ export async function POST(request: Request) {
     const body = await request.json();
     const res: any = await post("/auth/register", body);
 
-    console.log("Res register route:", res);
 
     // ✅ SỬA: Kiểm tra code thay vì data
     if (res?.code >= 400) {
